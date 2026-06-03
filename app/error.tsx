@@ -1,41 +1,20 @@
-"use client"; // error.tsx MUST be a Client Component
+"use client";
 
-import { useEffect } from "react";
-
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error("Application error:", error);
-  }, [error]);
-
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-col items-center gap-6 text-center px-8">
-        <div className="text-5xl">⚠️</div>
-        <h2 className="text-2xl font-semibold text-black dark:text-zinc-100">
-          Something went wrong!
-        </h2>
-        <p className="max-w-md text-lg text-zinc-600 dark:text-zinc-400">
-          An unexpected error occurred. Please try again.
-        </p>
-        {error.message && (
-          <pre className="max-w-md rounded-lg bg-red-50 p-4 text-sm text-red-800 dark:bg-red-900/20 dark:text-red-300 overflow-auto">
-            {error.message}
-          </pre>
-        )}
+    <main className="mx-auto flex min-h-[70vh] w-full max-w-3xl items-center justify-center px-6 py-16">
+      <section className="rounded-3xl bg-white p-8 text-center shadow-sm ring-1 ring-slate-200">
+        <p className="text-sm uppercase tracking-[0.35em] text-rose-500">Something went wrong</p>
+        <h1 className="mt-3 text-3xl font-semibold text-slate-950">We could not load this page.</h1>
+        <p className="mt-3 text-slate-600">{error.message}</p>
         <button
+          type="button"
           onClick={() => reset()}
-          className="mt-4 flex h-12 items-center justify-center rounded-full bg-foreground px-8 text-background font-medium transition-colors hover:bg-zinc-700 dark:hover:bg-zinc-300"
+          className="mt-6 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-700"
         >
-          Try Again
+          Try again
         </button>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }

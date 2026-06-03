@@ -1,19 +1,15 @@
-import { ProductListSkeleton } from "@/components/Skeletons";
-
-// loading.tsx — shown automatically while the page's async data is being fetched.
-// Next.js wraps the page in a <Suspense> boundary using this component as the fallback.
-// This file applies to app/products/page.tsx.
 export default function ProductsLoading() {
   return (
-    <main className="w-full py-16 px-8 bg-white dark:bg-black">
-      <h1 className="text-3xl font-semibold tracking-tight text-black dark:text-zinc-50 mb-2">
-        Products
-      </h1>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-8">
-        Loading products from API...
-      </p>
-
-      <ProductListSkeleton count={6} />
-    </main>
+    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {Array.from({ length: 3 }).map((_, index) => (
+        <div key={index} className="animate-pulse rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="h-40 rounded-2xl bg-slate-200" />
+          <div className="mt-4 h-4 w-24 rounded bg-slate-200" />
+          <div className="mt-3 h-6 w-3/4 rounded bg-slate-200" />
+          <div className="mt-2 h-4 w-full rounded bg-slate-100" />
+          <div className="mt-4 h-10 rounded-full bg-slate-200" />
+        </div>
+      ))}
+    </div>
   );
 }

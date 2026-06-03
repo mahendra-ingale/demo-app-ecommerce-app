@@ -1,95 +1,48 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import Link from "next/link";
+import { CartProvider } from "../context/CartContext";
+import { CartLink } from "../components/navigation/CartLink";
 import "./globals.css";
-import Breadcrumb from "@/components/Breadcrumb";
-import CartIndicator from "@/components/CartIndicator";
-import { CartProvider } from "@/contexts/CartContext";
 
-// next/font/google — downloads fonts at build time and self-hosts them.
-// Benefits: no external requests, no layout shift (FOUT), privacy-friendly.
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap", // Show fallback font immediately, swap when Inter loads
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-// Static metadata — applies to ALL pages unless overridden by nested pages.
-// This is the Metadata API — type-safe, composable, and SEO-friendly.
 export const metadata: Metadata = {
-  // Title template: %s is replaced by child page titles
-  title: {
-    default: "Ecommerce App — Next.js Store",
-    template: "%s | Ecommerce App",
-  },
-  description:
-    "A modern e-commerce store built with Next.js, React Server Components, TypeScript, and Tailwind CSS. Learn App Router, data fetching, and SEO best practices.",
-  keywords: ["ecommerce", "next.js", "react", "typescript", "tailwind css"],
-  authors: [{ name: "React Training" }],
-  creator: "React Training",
-
-  // Open Graph metadata — used by Facebook, LinkedIn, Discord, etc.
+  title: "E-Commerce",
+  description: "A learning-first Next.js e-commerce storefront with static product data.",
+  metadataBase: new URL("https://example.com"),
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "Ecommerce App",
-    title: "Ecommerce App — Next.js Store",
-    description:
-      "A modern e-commerce store built with Next.js and React Server Components.",
-    url: "https://ecommerce-app.example.com",
-  },
-
-  // Twitter Card metadata — used by Twitter/X
-  twitter: {
-    card: "summary_large_image",
-    title: "Ecommerce App — Next.js Store",
-    description:
-      "A modern e-commerce store built with Next.js and React Server Components.",
-    creator: "@reacttraining",
-  },
-
-  // Favicon and app icons
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-icon.png",
-  },
-
-  // Web manifest for PWA support
-  manifest: "/manifest.json",
-
-  // Robots metadata
-  robots: {
-    index: true,
-    follow: true,
+    title: "E-Commerce",
+    description: "Modern App Router storefront learning project",
+    images: ["/products/aurora.svg"],
   },
 };
 
-// RootLayout is a Server Component, but it wraps children in CartProvider (Client Component).
-// This is the "server wraps client" composition pattern.
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col font-sans">
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full bg-slate-50 text-slate-900">
         <CartProvider>
-          <header className="w-full border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black">
-            <div className="max-w-5xl mx-auto px-8 py-3 flex items-center justify-between">
-              <Breadcrumb />
-              <CartIndicator />
-            </div>
-          </header>
-          {children}
+          <div className="flex min-h-screen flex-col">
+            <header className="border-b border-slate-200 bg-white/95 backdrop-blur">
+              <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
+                <Link href="/" className="text-xl font-semibold tracking-tight text-slate-950">E-Commerce</Link>
+                <div className="flex items-center gap-4 text-sm font-medium text-slate-600">
+                  <Link href="/" className="hover:text-slate-950">Home</Link>
+                  <Link href="/products" className="hover:text-slate-950">Products</Link>
+                  <Link href="/about" className="hover:text-slate-950">About</Link>
+                  <CartLink />
+                  <Link href="/login" className="rounded-full bg-slate-950 px-4 py-2 text-white hover:bg-slate-700">Login</Link>
+                </div>
+              </nav>
+            </header>
+            {children}
+            <footer className="mt-auto border-t border-slate-200 bg-white">
+              <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-6 py-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+                <p>E-Commerce © 2026</p>
+              </div>
+            </footer>
+          </div>
         </CartProvider>
       </body>
     </html>
