@@ -41,7 +41,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-10 text-slate-800 lg:flex-row">
       <div className="relative h-[320px] w-full overflow-hidden rounded-3xl bg-slate-100 lg:h-[420px] lg:max-w-xl">
-        <Image src={product.image} alt={product.title} fill className="object-cover" />
+        <Image
+          src={product.image}
+          alt={product.title}
+          fill
+          className="object-cover"
+          priority
+          placeholder="blur"
+          blurDataURL="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='20' viewBox='0 0 32 20'><rect width='32' height='20' fill='%23e2e8f0'/></svg>"
+        />
       </div>
       <article className="flex-1 rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
         <p className="text-sm uppercase tracking-[0.35em] text-sky-600">{product.category}</p>

@@ -9,7 +9,13 @@ export function ProductCard({ product }: { product: Product }) {
     <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
       <Link href={`/products/${product.id}`} className="block space-y-4">
         <div className="relative h-40 overflow-hidden rounded-2xl bg-slate-100">
-          <Image src={product.image} alt={product.title} fill className="object-cover" />
+          <Image
+            src={product.image}
+            alt={product.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+          />
         </div>
         <div>
           <p className="text-xs uppercase tracking-[0.25em] text-sky-600">{product.category}</p>
