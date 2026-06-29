@@ -20,6 +20,9 @@ export default async function NavHeader() {
           <Link href="/products" className="hover:text-slate-950">
             Products
           </Link>
+          <Link href="/state-demo" className="hover:text-slate-950">
+            State Demo
+          </Link>
           <Link href="/about" className="hover:text-slate-950">
             About
           </Link>
